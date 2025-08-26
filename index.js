@@ -80,7 +80,7 @@ app.get('/usuarios', (req, res) =>{
 //GET = Read com ID
 app.get('/usuarios/:id', (req, res) => {
     const {id} = req.params;
-    const sql = `SELECT * usuarios WHERE  id = ?`;
+    const sql = `SELECT * FROM usuarios WHERE  id = ?`;
     db.get(sql, [id], (err, row) =>{
         if (err){
             console.error(err.message);
@@ -112,6 +112,8 @@ app.put('/usuarios/:id', (req, res) =>{
             return res.status(500).json({error: 'Erro ao atuaizar usuario'});
         }
         if (this.changes > 0){
+            res.json({menssage: 'Usuário atualizado com sucesso'});
+        }else{
             res.status(404).json({error: 'Usuário não encontrado'});
         }
     });
